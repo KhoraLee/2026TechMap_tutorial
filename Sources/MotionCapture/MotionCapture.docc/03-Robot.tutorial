@@ -1,0 +1,162 @@
+@Tutorial(time: 25) {
+    @Intro(title: "로봇 등장") {
+        파이프라인의 마지막 조각입니다 — robot.usdz를 로딩해서 사람 위치의 깃발에
+        매달면(**entity**), 로봇이 사람의 움직임을 따라 합니다. 91개 관절을 하나하나
+        움직이는 코드는 쓰지 않습니다. `BodyTrackedEntity`를 깃발에 매달아 두기만 하면
+        RealityKit이 관절 애니메이션을 알아서 구동합니다.
+
+        @Image(source: "chapter-robot", alt: "로봇 등장 챕터 아트워크")
+    }
+
+    @Section(title: "로봇 비동기 로딩") {
+        @ContentAndMedia {
+            로봇 모델은 약 14MB라 로딩에 수 초가 걸립니다. `try await`로 비동기
+            로딩하고, 실패하면 화면에 빨간 에러 배너를 띄웁니다 — "비동기 작업은
+            실패할 수 있고, 실패는 화면에 보여야 한다"는 좋은 연습입니다.
+        }
+
+        @Steps {
+            @Step {
+                `BodyTrackingState`에 로딩 실패 메시지 프로퍼티를 한 줄 추가합니다.
+
+                @Code(name: "BodyTrackingState.swift", file: "03-robot-01-BodyTrackingState.swift")
+            }
+
+            @Step {
+                Coordinator에 세 가지 도구를 추가합니다 — 로봇을 매달아 둘 빈 앵커
+                `characterAnchor`, 로딩이 끝난 모델을 보관할 `character`, 그리고
+                로봇을 사람 옆에 세울 거리 `characterOffsetDistance`.
+
+                방향이 아니라 "거리만" 정해 두는 이유: 로봇을 세울 "옆" 방향은
+                카메라가 어디 있느냐에 따라 달라지므로, 잠시 뒤 매 프레임
+                카메라 기준으로 다시 계산합니다.
+
+                @Code(name: "ARViewContainer.swift", file: "03-robot-02-ARViewContainer.swift")
+            }
+
+            @Step {
+                `loadCharacter()`를 추가합니다. `try await BodyTrackedEntity(named: "robot")`이
+                번들에서 robot.usdz를 로딩합니다(확장자 생략). 실패하면 에러 메시지를
+                상태에 담아 화면으로 보냅니다.
+
+                옛날 튜토리얼의 `loadBodyTrackedAsync` + Combine 코드는 iOS 18부터
+                deprecated입니다. 지금은 이 `try await` 한 줄이 공식 경로입니다.
+
+                @Code(name: "ARViewContainer.swift", file: "03-robot-03-ARViewContainer.swift")
+            }
+
+            @Step {
+                `makeUIView`에서 빈 앵커를 씬에 미리 꽂고, 로딩을 시작합니다.
+
+                @Code(name: "ARViewContainer.swift", file: "03-robot-04-ARViewContainer.swift")
+            }
+        }
+    }
+
+    @Section(title: "사람 따라 움직이기") {
+        @ContentAndMedia {
+            이제 매 프레임 호출되는 `session(_:didUpdate:)`에서 깃발을 사람 위치로
+            옮기고, 준비가 끝난 첫 프레임에 로봇을 깃발에 매답니다.
+        }
+
+        @Steps {
+            @Step {
+                `session(_:didUpdate:)`와 옆 방향을 구하는 `sideOffset`을 추가합니다.
+                핵심은 세 가지입니다 —
+                ① 앵커의 위치(사람 **골반**의 월드 좌표)에 옆 오프셋을 더해 깃발을
+                옮기고(방향은 하늘 축과 "카메라→사람" 벡터의 **외적**으로 매 프레임
+                계산합니다 — 방향을 월드 좌표에 고정하면 시점에 따라 로봇이 카메라
+                앞을 가로막아 화면을 꽉 채우는 함정이 있습니다),
+                ② 앵커의 **회전도 복사**하며(스켈레톤 포즈가 앵커 회전 기준 상대값이라,
+                빼먹으면 사람이 몸을 돌려도 로봇은 같은 방향만 봅니다),
+                ③ "로딩 완료 + 사람 감지"가 처음 동시에 충족된 프레임에 딱 한 번
+                로봇을 매답니다(lazy attach — 로딩과 발견 중 어느 쪽이 먼저일지 모르므로).
+
+                @Code(name: "ARViewContainer.swift", file: "03-robot-05-ARViewContainer.swift")
+            }
+
+            @Step {
+                `ContentView`에 로딩 실패 배너를 추가하면 완성입니다.
+
+                한 가지 함정: `BodyMotionDemoApp.swift`에는 절대 `import RealityKit`을
+                추가하지 마세요. SwiftUI의 `Scene`과 RealityKit의 `Scene` 이름이 충돌해
+                "'Scene' is ambiguous" 에러가 납니다.
+
+                @Code(name: "ContentView.swift", file: "03-robot-06-ContentView.swift")
+            }
+
+            @Step {
+                실행하고 사람 전신을 비춥니다. **사람 왼쪽 1m에 로봇이 서서 걷기,
+                팔 들기, 춤을 전부 따라 하면 완성입니다.** ✅ 🎉
+
+                빨간 배너("로봇 모델을 불러오지 못했어요")가 뜨면 robot.usdz의
+                Target Membership을 확인하세요. `characterOffsetDistance`를 `0`으로
+                바꾸면 로봇이 사람 위치에 겹쳐져 "사람이 로봇이 된" 화면이 됩니다.
+            }
+        }
+    }
+
+    @Assessments {
+        @MultipleChoice {
+            `ARBodyAnchor.transform`의 위치는 사람 몸의 어디일까요?
+
+            @Choice(isCorrect: false) {
+                발바닥 (바닥에 닿는 지점)
+
+                @Justification(reaction: "아쉬워요") {
+                    발바닥이 아니라서, 로봇을 '바닥에' 세우려면 골반→발 오프셋을
+                    따로 계산해야 합니다.
+                }
+            }
+
+            @Choice(isCorrect: true) {
+                골반 (hip joint)
+
+                @Justification(reaction: "정답!") {
+                    바디 앵커의 transform은 hip joint의 월드 좌표입니다.
+                    나머지 91개 관절은 이 앵커 기준의 상대 좌표로 제공됩니다.
+                }
+            }
+
+            @Choice(isCorrect: false) {
+                머리 (head joint)
+
+                @Justification(reaction: "아쉬워요") {
+                    루트는 머리가 아니라 골반입니다. 스켈레톤 계층의 루트 관절이
+                    hip이고, 앵커의 위치가 바로 그 지점입니다.
+                }
+            }
+        }
+
+        @MultipleChoice {
+            로봇을 `didUpdate` 안에서 `character.parent == nil`일 때만 매다는 이유는?
+
+            @Choice(isCorrect: true) {
+                모델 로딩과 사람 발견 중 어느 쪽이 먼저 끝날지 알 수 없어서, 두 조건이 처음 만나는 프레임에 한 번만 붙이려고
+
+                @Justification(reaction: "정답!") {
+                    lazy attach 패턴입니다. parent == nil 체크 덕분에 이미 매달린
+                    뒤에는 다시 실행되지 않습니다.
+                }
+            }
+
+            @Choice(isCorrect: false) {
+                매 프레임 다시 매달아야 로봇이 움직이기 때문
+
+                @Justification(reaction: "아쉬워요") {
+                    반대입니다 — 한 번 매달면 깃발(characterAnchor)이 움직일 때 로봇도
+                    따라 움직입니다. parent == nil 체크는 '한 번만' 붙이기 위한 것입니다.
+                }
+            }
+
+            @Choice(isCorrect: false) {
+                메모리 누수를 막기 위해
+
+                @Justification(reaction: "아쉬워요") {
+                    메모리 문제가 아니라 타이밍 문제입니다. 로딩 완료와 사람 발견이라는
+                    두 비동기 사건의 순서를 모르기 때문에 쓰는 패턴입니다.
+                }
+            }
+        }
+    }
+}

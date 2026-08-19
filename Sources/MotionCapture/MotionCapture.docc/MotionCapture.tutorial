@@ -1,0 +1,40 @@
+@Tutorials(name: "모션 캡처") {
+    @Intro(title: "내 몸을 따라 움직이는 3D 캐릭터") {
+        ARKit의 바디 트래킹으로, 카메라에 잡힌 사람 옆에 로봇이 나타나 그 사람의
+        동작을 실시간으로 따라 하는 앱을 만듭니다.
+
+        이 여정에서 배우는 것은 딱 세 개의 개념입니다 — 카메라가 사람을 **발견**하면(detection),
+        그 자리에 좌표 깃발을 꽂고(**anchor**), 깃발에 3D 모델을 매답니다(**entity**).
+        이 "발견 → 깃발 → 매달기" 파이프라인은 ARKit의 거의 모든 기능(평면·이미지·사물 인식)이
+        공유하는 구조라서, 한 번 익히면 계속 써먹을 수 있습니다.
+
+        준비물: A12 칩 이상(iPhone XS/XR 이후)의 **실기기**(iOS 18 이상), Mac + Xcode,
+        무료 Apple ID, 그리고 모델이 되어 줄 사람 1명. **시뮬레이터에서는 동작하지 않습니다.**
+
+        시작하기 전에 — `BodyMotionDemo-Starter` 폴더를 복사해 열고,
+        **Signing & Capabilities에서 Team 선택 + Bundle Identifier 변경**, 실기기
+        연결까지 마쳐 두세요. 나머지 세팅(배포 타겟·카메라 권한·robot.usdz)은 Starter에
+        이미 되어 있습니다. 자세한 절차와 막힐 때의 해결책은 README와 TUTORIAL.md
+        §3·§8에 있습니다.
+
+        @Image(source: "chapter-robot", alt: "완성된 앱을 나타내는 그라디언트 아트워크")
+    }
+
+    @Chapter(name: "카메라와 사람 찾기") {
+        AR 카메라 화면을 SwiftUI에 올리고, 세션을 "사람 추적 모드"로 바꿔
+        ARKit이 사람을 발견하는 순간을 화면 배지로 확인합니다.
+
+        @Image(source: "chapter-camera", alt: "카메라와 사람 찾기 챕터 아트워크")
+
+        @TutorialReference(tutorial: "doc:02-Camera")
+    }
+
+    @Chapter(name: "로봇 등장") {
+        robot.usdz를 로딩해 사람 위치의 깃발에 매달고,
+        사람의 움직임을 따라 하게 만듭니다.
+
+        @Image(source: "chapter-robot", alt: "로봇 등장 챕터 아트워크")
+
+        @TutorialReference(tutorial: "doc:03-Robot")
+    }
+}

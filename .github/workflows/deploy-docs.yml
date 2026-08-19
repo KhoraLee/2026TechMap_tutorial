@@ -1,0 +1,82 @@
+# main 브랜치에 push할 때마다 DocC 튜토리얼을 빌드해 GitHub Pages로 배포합니다.
+# 사전 준비: 리포지토리 Settings > Pages > Source를 "GitHub Actions"로 설정하세요.
+# hosting-base-path는 **리포지토리 이름**(2026TechMap_tutorial)과 같아야 하므로
+# $GITHUB_REPOSITORY에서 자동으로 뽑아 씁니다. --target의 MotionCapture는
+# Package.swift의 Swift 타깃 이름이라 별개입니다.
+
+name: Deploy DocC to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-26
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Build DocC (static hosting)
+        run: |
+          swift package --allow-writing-to-directory "$RUNNER_TEMP/site" \
+            generate-documentation \
+            --target MotionCapture \
+            --transform-for-static-hosting \
+            --hosting-base-path "${GITHUB_REPOSITORY#*/}" \
+            --output-path "$RUNNER_TEMP/site"
+
+      - name: Add root redirect
+        run: |
+          cat > "$RUNNER_TEMP/site/index.html" <<'HTML'
+          <!DOCTYPE html>
+          <html lang="ko">
+          <head>
+              <meta charset="utf-8">
+              <meta http-equiv="refresh" content="0; url=tutorials/motioncapture/">
+              <title>모션 캡처 튜토리얼</title>
+          </head>
+          <body>
+              <p><a href="tutorials/motioncapture/">튜토리얼로 이동합니다…</a></p>
+          </body>
+          </html>
+          HTML
+
+      - name: Verify output
+        run: |
+          test -f "$RUNNER_TEMP/site/tutorials/motioncapture/index.html"
+          test -f "$RUNNER_TEMP/site/tutorials/motioncapture/02-camera/index.html"
+          test -f "$RUNNER_TEMP/site/tutorials/motioncapture/03-robot/index.html"
+          grep -q "/${GITHUB_REPOSITORY#*/}/" "$RUNNER_TEMP/site/tutorials/motioncapture/02-camera/index.html"
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ runner.temp }}/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
