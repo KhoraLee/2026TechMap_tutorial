@@ -12,9 +12,9 @@
         @ContentAndMedia {
             AR 화면을 그리는 `ARView`는 SwiftUI가 아니라 **UIKit**의 뷰입니다.
             그래서 SwiftUI 화면에 바로 넣을 수 없고, `UIViewRepresentable`이라는
-            **어댑터**를 만들어 끼워야 합니다. 요구사항은 두 가지뿐입니다 —
+            **어댑터**를 만들어 끼워야 합니다. 요구사항은
             "무슨 UIKit 뷰를 만들지"(`makeUIView`)와
-            "상태가 바뀌면 어떻게 갱신할지"(`updateUIView`).
+            "상태가 바뀌면 어떻게 갱신할지"(`updateUIView`) 두 가지뿐입니다.
 
             @Image(source: "chapter-camera", alt: "카메라 챕터 아트워크")
         }
@@ -57,8 +57,8 @@
         @ContentAndMedia {
             ARKit은 "사람을 찾았어요" 같은 소식을 **delegate**(대리인) 객체의 메서드를
             호출하는 방식으로 전달합니다. SwiftUI의 뷰(struct)는 대리인이 될 수 없어서,
-            `UIViewRepresentable`에 딸린 **Coordinator** — "UIKit의 소식을 받는
-            우체통" — 를 만들어 등록합니다. 우체통이 받은 소식은 `@Observable` 상태
+            `UIViewRepresentable`에 딸린 **Coordinator**("UIKit의 소식을 받는
+            우체통")를 만들어 등록합니다. 우체통이 받은 소식은 `@Observable` 상태
             저장소를 통해 SwiftUI 배지까지 전달됩니다.
         }
 
@@ -74,13 +74,13 @@
             @Step {
                 `ARViewContainer`에 상태 프로퍼티와 `makeCoordinator()`를 추가하고,
                 `Coordinator` 클래스의 뼈대를 만듭니다. `ARSessionDelegate`를 채택하려면
-                `NSObject` 상속이 필요합니다 — UIKit 세계의 오래된 약속입니다.
+                `NSObject` 상속이 필요합니다. UIKit 세계의 오래된 약속입니다.
 
                 @Code(name: "ARViewContainer.swift", file: "02-person-02-ARViewContainer.swift")
             }
 
             @Step {
-                우체통에 첫 수신함을 만듭니다 — `session(_:didAdd:)`는 ARKit이
+                우체통에 첫 수신함을 만듭니다. `session(_:didAdd:)`는 ARKit이
                 **새 깃발(앵커)을 꽂는 순간** 한 번 호출됩니다. 들어온 앵커 중
                 사람용 깃발(`ARBodyAnchor`)이 있으면 상태를 켭니다.
 
@@ -103,7 +103,7 @@
                 세션을 켜기 전에 `ARBodyTrackingConfiguration.isSupported`로
                 기기 지원 여부를 확인하는 것이 공식 권장 패턴입니다.
 
-                Apple 공식 샘플은 여기서 `fatalError`로 앱을 죽이지만, 실제 앱에서는
+                Apple 공식 샘플은 여기서 `fatalError`로 앱을 강제 종료하지만, 실제 앱에서는
                 이렇게 안내 화면으로 분기하는 쪽이 옳습니다.
 
                 @Code(name: "ContentView.swift", file: "02-person-05-ContentView.swift")
