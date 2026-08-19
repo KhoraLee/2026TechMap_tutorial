@@ -52,15 +52,12 @@
         튜토리얼에 필요한 파일과 더 읽을거리입니다.
 
         @SampleCode(destination: "https://developer.apple.com/documentation/arkit/capturing-body-motion-in-3d") {
-            이 튜토리얼의 원형이 된 Apple 공식 샘플입니다.
+            이 튜토리얼의 원형이 된 Apple 공식 샘플과 로봇 모델입니다.
 
             - [Capturing Body Motion in 3D](https://developer.apple.com/documentation/arkit/capturing-body-motion-in-3d):
               내려받은 zip 안 `BodyDetection/character/robot.usdz`가 우리가 쓰는 로봇 모델입니다.
-        }
-
-        @Downloads(destination: "https://developer.apple.com/sample-code/ar/Biped-Robot.zip") {
-            로봇 캐릭터의 USDZ·FBX 원본입니다. 내 모델을 바디 트래킹용으로 리깅할 때
-            이 스켈레톤을 그대로 씁니다.
+            - [로봇 캐릭터 원본(USDZ·FBX)](https://developer.apple.com/sample-code/ar/Biped-Robot.zip):
+              내 모델을 바디 트래킹용으로 리깅할 때 이 스켈레톤을 그대로 씁니다.
         }
 
         @Documentation(destination: "https://developer.apple.com/documentation/arkit/arbodyanchor") {
