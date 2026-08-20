@@ -22,6 +22,17 @@
 
         @Steps {
             @Step {
+                내려받은 `robot.usdz`를 Xcode 왼쪽 파일 목록의 앱 폴더로 드래그해
+                프로젝트에 넣습니다. 다이얼로그에서 **Copy items if needed**와
+                **Add to targets**를 모두 체크하세요.
+
+                두 체크가 빠지면 파일이 앱 번들에 들어가지 않아, 잠시 뒤 쓸 로딩
+                코드가 모델을 찾지 못합니다. 이미 넣은 뒤라면 파일 목록에서
+                `robot.usdz`를 고르고 오른쪽 인스펙터의 Target Membership이
+                체크돼 있는지 확인하면 됩니다.
+            }
+
+            @Step {
                 `BodyTrackingState`에 로딩 실패 메시지 프로퍼티를 한 줄 추가합니다.
 
                 @Code(name: "BodyTrackingState.swift", file: "03-robot-01-BodyTrackingState.swift")
