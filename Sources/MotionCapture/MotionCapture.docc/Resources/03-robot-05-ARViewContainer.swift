@@ -14,7 +14,7 @@ struct ARViewContainer: UIViewRepresentable {
         let configuration = ARBodyTrackingConfiguration()
         arView.session.run(configuration)
 
-        // 로봇을 매달아 둘 빈 깃발(앵커)을 씬에 미리 꽂아 둡니다.
+        // 로봇을 매달아 둘 빈 앵커를 씬에 미리 넣어 둡니다.
         arView.scene.addAnchor(context.coordinator.characterAnchor)
 
         // 로봇 모델은 약 14MB라 비동기로 로딩합니다.
@@ -77,7 +77,7 @@ extension ARViewContainer {
                     state.isPersonDetected = bodyAnchor.isTracked
                 }
 
-                // 앵커의 위치(사람 골반의 월드 좌표)에 옆 오프셋을 더해 깃발을 옮깁니다.
+                // 사람 골반의 월드 좌표에 옆 오프셋을 더해 characterAnchor를 옮깁니다.
                 let bodyPosition = simd_make_float3(bodyAnchor.transform.columns.3)
                 characterAnchor.position = bodyPosition + sideOffset(from: session, to: bodyPosition)
 
@@ -86,7 +86,7 @@ extension ARViewContainer {
                 characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
 
                 // "모델 로딩 완료 + 사람 감지" 두 조건이 처음 동시에 충족된 프레임에
-                // 딱 한 번만 로봇을 깃발에 매답니다.
+                // 딱 한 번만 로봇을 앵커에 매답니다.
                 if let character, character.parent == nil {
                     characterAnchor.addChild(character)
                 }

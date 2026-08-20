@@ -1,8 +1,8 @@
 @Tutorial(time: 25) {
     @Intro(title: "로봇 등장") {
-        파이프라인의 마지막 조각입니다: robot.usdz를 로딩해서 사람 위치의 깃발에
+        파이프라인의 마지막 조각입니다: robot.usdz를 로딩해서 사람을 따라가는 앵커에
         매달면(**entity**), 로봇이 사람의 움직임을 따라 합니다. 91개 관절을 하나하나
-        움직이는 코드는 쓰지 않습니다. `BodyTrackedEntity`를 깃발에 매달아 두기만 하면
+        움직이는 코드는 쓰지 않습니다. `BodyTrackedEntity`를 앵커에 매달아 두기만 하면
         RealityKit이 관절 애니메이션을 알아서 구동합니다.
 
         @Image(source: "chapter-robot", alt: "로봇 등장 챕터 아트워크")
@@ -51,7 +51,7 @@
             }
 
             @Step {
-                `makeUIView`에서 빈 앵커를 씬에 미리 꽂고, 로딩을 시작합니다.
+                `makeUIView`에서 빈 앵커를 씬에 미리 넣고, 로딩을 시작합니다.
 
                 @Code(name: "ARViewContainer.swift", file: "03-robot-04-ARViewContainer.swift")
             }
@@ -60,16 +60,21 @@
 
     @Section(title: "사람 따라 움직이기") {
         @ContentAndMedia {
-            이제 매 프레임 호출되는 `session(_:didUpdate:)`에서 깃발을 사람 위치로
-            옮기고, 준비가 끝난 첫 프레임에 로봇을 깃발에 매답니다.
+            이제 매 프레임 호출되는 `session(_:didUpdate:)`에서 `characterAnchor`를
+            사람 위치로 옮기고, 준비가 끝난 첫 프레임에 로봇을 그 앵커에 매답니다.
+
+            여기서 앵커가 둘이라는 점을 구분해야 합니다. `ARBodyAnchor`는 ARKit이
+            사람을 찾아서 건네주는 관측 결과라 로봇을 직접 붙일 수 없습니다. 로봇을
+            매다는 `characterAnchor`는 우리가 만든 RealityKit의 `AnchorEntity`이고,
+            매 프레임 `ARBodyAnchor`의 위치와 회전을 베껴 옵니다.
         }
 
         @Steps {
             @Step {
                 `session(_:didUpdate:)`와 옆 방향을 구하는 `sideOffset`을 추가합니다.
                 핵심은 세 가지입니다.
-                ① 앵커의 위치(사람 **골반**의 월드 좌표)에 옆 오프셋을 더해 깃발을
-                옮기고(방향은 하늘 축과 "카메라→사람" 벡터의 **외적**으로 매 프레임
+                ① 바디 앵커의 위치(사람 **골반**의 월드 좌표)에 옆 오프셋을 더해
+                `characterAnchor`를 옮기고(방향은 하늘 축과 "카메라→사람" 벡터의 **외적**으로 매 프레임
                 계산합니다. 방향을 월드 좌표에 고정하면 시점에 따라 로봇이 카메라
                 앞을 가로막아 화면을 꽉 채우는 함정이 있습니다),
                 ② 앵커의 **회전도 복사**하며(스켈레톤 포즈가 앵커 회전 기준 상대값이라,
@@ -150,7 +155,7 @@
                 매 프레임 다시 매달아야 로봇이 움직이기 때문
 
                 @Justification(reaction: "아쉬워요") {
-                    반대입니다. 한 번 매달면 깃발(characterAnchor)이 움직일 때 로봇도
+                    반대입니다. 한 번 매달면 `characterAnchor`가 움직일 때 로봇도
                     따라 움직입니다. parent == nil 체크는 '한 번만' 붙이기 위한 것입니다.
                 }
             }
