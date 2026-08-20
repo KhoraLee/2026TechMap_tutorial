@@ -99,9 +99,11 @@
             @Step {
                 `ContentView`에 로딩 실패 배너를 추가하면 완성입니다.
 
-                한 가지 함정: `BodyMotionDemoApp.swift`에는 절대 `import RealityKit`을
-                추가하지 마세요. SwiftUI의 `Scene`과 RealityKit의 `Scene` 이름이 충돌해
-                "'Scene' is ambiguous" 에러가 납니다.
+                한 가지 함정: `BodyMotionDemoApp.swift`에 `import RealityKit`을 넣으면
+                SwiftUI의 `Scene`과 RealityKit의 `Scene`이 충돌해
+                `'Scene' is ambiguous for type lookup` 에러가 납니다. `some SwiftUI.Scene`처럼
+                모듈 이름을 붙여 한정하면 그대로 컴파일되지만, 이 파일에는 RealityKit이
+                필요 없으니 import를 넣지 않는 쪽이 간단합니다.
 
                 @Code(name: "ContentView.swift", file: "03-robot-06-ContentView.swift")
             }
