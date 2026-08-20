@@ -11,21 +11,7 @@
         준비물: A12 칩 이상(iPhone XS/XR 이후)의 **실기기**(iOS 18 이상), Mac + Xcode,
         무료 Apple ID, 그리고 모델이 되어 줄 사람 1명이 필요합니다. **시뮬레이터에서는 동작하지 않습니다.**
 
-        코딩은 빈 SwiftUI 앱 프로젝트에서 시작합니다. Xcode에서 iOS App 템플릿으로
-        프로젝트를 하나 만들고, 아래 네 가지를 먼저 마쳐 두세요. 처음 하는 사람이
-        가장 많이 막히는 곳은 코드가 아니라 이 세팅입니다.
-
-        - **Minimum Deployments를 iOS 18.0으로** 낮춥니다. Xcode 27이 만드는 새 프로젝트는
-          기본값이 iOS 27.0이라, 그대로 두면 기기에 설치되지 않습니다.
-        - **카메라 권한 문구를 등록합니다.** TARGETS → Info에
-          `Privacy - Camera Usage Description`을 추가하고 사용 이유를 적습니다.
-          빠뜨리면 카메라를 켜는 순간 앱이 강제 종료됩니다.
-        - **robot.usdz를 프로젝트에 넣습니다.** Apple 공식 샘플
-          [Capturing Body Motion in 3D](https://developer.apple.com/documentation/arkit/capturing-body-motion-in-3d)를
-          내려받으면 `BodyDetection/character/robot.usdz`에 들어 있습니다. 파일을 드래그할 때
-          **Copy items if needed**와 **Add to targets**를 모두 체크하세요.
-        - **Signing & Capabilities에서 Team을 고르고 Bundle Identifier를 본인 것으로** 바꾼 뒤,
-          기기를 연결하고 기기 설정에서 개발자 모드를 켭니다.
+        코딩은 빈 SwiftUI 앱 프로젝트에서 시작합니다.
 
         @Image(source: "chapter-robot", alt: "완성된 앱을 나타내는 그라디언트 아트워크")
     }

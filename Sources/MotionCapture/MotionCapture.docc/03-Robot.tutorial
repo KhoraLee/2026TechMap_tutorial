@@ -10,7 +10,12 @@
 
     @Section(title: "로봇 비동기 로딩") {
         @ContentAndMedia {
-            로봇 모델은 약 14MB라 로딩에 수 초가 걸립니다. `try await`로 비동기
+            쓸 모델은 Apple 공식 샘플
+            [Capturing Body Motion in 3D](https://developer.apple.com/documentation/arkit/capturing-body-motion-in-3d)의
+            zip 안 `BodyDetection/character/robot.usdz`입니다. 바디 트래킹 전용으로
+            리깅된 모델이라 아무 usdz나 대신 쓸 수는 없습니다.
+
+            이 파일은 약 14MB라 로딩에 수 초가 걸립니다. `try await`로 비동기
             로딩하고, 실패하면 화면에 빨간 에러 배너를 띄웁니다. "비동기 작업은
             실패할 수 있고, 실패는 화면에 보여야 한다"는 원칙을 익히는 좋은 연습입니다.
         }
