@@ -88,6 +88,9 @@
                 `Coordinator` 클래스의 뼈대를 만듭니다. `ARSessionDelegate`를 채택하려면
                 `NSObject` 상속이 필요합니다. UIKit 세계의 오래된 약속입니다.
 
+                이 스텝부터 `ContentView`에 인자가 빠졌다는 에러가 보이는 게
+                정상입니다. 잠시 뒤 `ContentView`를 교체하면 사라집니다.
+
                 @Code(name: "ARViewContainer.swift", file: "02-person-02-ARViewContainer.swift")
             }
 
