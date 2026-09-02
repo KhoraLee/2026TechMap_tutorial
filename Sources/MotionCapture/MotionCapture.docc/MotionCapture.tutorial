@@ -16,8 +16,6 @@
 
         코딩은 빈 SwiftUI 앱 프로젝트에서 시작합니다. 프로젝트 이름은
         `BodyMotionDemo`로 가정하고 진행합니다.
-
-        @Image(source: "chapter-robot", alt: "완성된 앱을 나타내는 그라디언트 아트워크")
     }
 
     @Chapter(name: "카메라와 사람 찾기") {

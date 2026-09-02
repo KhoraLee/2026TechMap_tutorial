@@ -4,8 +4,6 @@
         매달면(**entity**), 로봇이 사람의 움직임을 따라 합니다. 91개 관절을 하나하나
         움직이는 코드는 쓰지 않습니다. `BodyTrackedEntity`를 앵커에 매달아 두기만 하면
         RealityKit이 관절 애니메이션을 알아서 구동합니다.
-
-        @Image(source: "chapter-robot", alt: "로봇 등장 챕터 아트워크")
     }
 
     @Section(title: "로봇 비동기 로딩") {

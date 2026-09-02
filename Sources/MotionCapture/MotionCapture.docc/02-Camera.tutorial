@@ -4,8 +4,6 @@
         이어서 세션을 "사람 추적 모드"로 바꿔 ARKit이 사람을 **발견**하는 순간을
         화면 배지(🟢/⚪️)로 확인합니다. 로봇은 아직 없지만, 발견 → 앵커까지가
         실제로 돌아가는 걸 눈으로 보게 됩니다.
-
-        @Image(source: "chapter-camera", alt: "카메라와 사람 찾기 챕터 아트워크")
     }
 
     @Section(title: "ARView를 SwiftUI에 올리기") {
@@ -15,8 +13,6 @@
             **어댑터**를 만들어 끼워야 합니다. 요구사항은
             "무슨 UIKit 뷰를 만들지"(`makeUIView`)와
             "상태가 바뀌면 어떻게 갱신할지"(`updateUIView`) 두 가지뿐입니다.
-
-            @Image(source: "chapter-camera", alt: "카메라 챕터 아트워크")
         }
 
         @Steps {
