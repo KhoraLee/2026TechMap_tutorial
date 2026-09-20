@@ -18,7 +18,7 @@ struct ARViewContainer: UIViewRepresentable {
 }
 
 extension ARViewContainer {
-    /// ARSession이 보내는 소식(앵커 추가·갱신)을 받는 우체통.
+    /// ARSession의 delegate. 앵커가 추가·갱신될 때 ARKit이 이 객체의 메서드를 호출합니다.
     final class Coordinator: NSObject, ARSessionDelegate {
         let state: BodyTrackingState
 
