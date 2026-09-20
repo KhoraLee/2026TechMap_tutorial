@@ -2,11 +2,12 @@ import SwiftUI
 import ARKit
 
 struct ContentView: View {
-    /// AR 세계(Coordinator)와 SwiftUI 화면을 잇는 공유 상태
+    /// Coordinator와 SwiftUI 화면을 잇는 공유 상태
     @State private var trackingState = BodyTrackingState()
 
     var body: some View {
         // 바디 트래킹은 A12 칩 이상 실기기에서만 지원됩니다.
+        // 시뮬레이터와 구형 기기에서는 isSupported가 false입니다.
         if ARBodyTrackingConfiguration.isSupported {
             ZStack(alignment: .top) {
                 ARViewContainer(state: trackingState)

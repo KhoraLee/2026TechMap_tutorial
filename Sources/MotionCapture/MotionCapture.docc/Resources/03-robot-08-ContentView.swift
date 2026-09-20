@@ -2,7 +2,7 @@ import SwiftUI
 import ARKit
 
 struct ContentView: View {
-    /// AR 세계(Coordinator)와 SwiftUI 화면을 잇는 공유 상태
+    /// Coordinator와 SwiftUI 화면을 잇는 공유 상태
     @State private var trackingState = BodyTrackingState()
 
     var body: some View {
