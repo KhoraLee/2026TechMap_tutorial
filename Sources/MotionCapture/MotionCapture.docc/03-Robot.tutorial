@@ -33,7 +33,7 @@
             @Step {
                 `BodyTrackingState`에 로딩 실패 메시지 프로퍼티를 한 줄 추가합니다.
 
-                @Code(name: "BodyTrackingState.swift", file: "03-robot-01-BodyTrackingState.swift")
+                @Code(name: "BodyTrackingState.swift", file: "03-robot-01-BodyTrackingState.swift", previousFile: "02-person-01-BodyTrackingState.swift")
             }
 
             @Step {
@@ -45,7 +45,7 @@
                 카메라가 어디 있느냐에 따라 달라지므로, 잠시 뒤 매 프레임
                 카메라 기준으로 다시 계산합니다.
 
-                @Code(name: "ARViewContainer.swift", file: "03-robot-02-ARViewContainer.swift")
+                @Code(name: "ARViewContainer.swift", file: "03-robot-02-ARViewContainer.swift", previousFile: "02-person-04-ARViewContainer.swift")
             }
 
             @Step {
@@ -87,7 +87,7 @@
                 방향을 월드 좌표에 고정하지 않고 매 프레임 카메라 기준으로 다시 구합니다.
                 고정하면 보는 위치에 따라 로봇이 카메라 앞을 가로막아 화면을 꽉 채웁니다.
 
-                @Code(name: "ARViewContainer.swift", file: "03-robot-05-ARViewContainer.swift")
+                @Code(name: "ARViewContainer.swift", file: "03-robot-05-ARViewContainer.swift", previousFile: "03-robot-04-ARViewContainer.swift")
             }
 
             @Step {
@@ -123,7 +123,7 @@
                 모듈 이름을 붙여 한정하면 그대로 컴파일되지만, 이 파일에는 RealityKit이
                 필요 없으니 import를 넣지 않는 쪽이 간단합니다.
 
-                @Code(name: "ContentView.swift", file: "03-robot-08-ContentView.swift")
+                @Code(name: "ContentView.swift", file: "03-robot-08-ContentView.swift", previousFile: "02-person-05-ContentView.swift")
             }
 
             @Step {

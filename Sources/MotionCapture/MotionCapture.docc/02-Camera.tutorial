@@ -35,7 +35,7 @@
             @Step {
                 `ContentView.swift`를 교체해 방금 만든 어댑터를 전체 화면으로 띄웁니다.
 
-                @Code(name: "ContentView.swift", file: "02-camera-03-ContentView.swift")
+                @Code(name: "ContentView.swift", file: "02-camera-03-ContentView.swift", previousFile: "02-camera-00-ContentView.swift")
             }
 
             @Step {
@@ -94,7 +94,7 @@
                 이 스텝부터 `ContentView`에 인자가 빠졌다는 에러가 보이는 게
                 정상입니다. 잠시 뒤 `ContentView`를 교체하면 사라집니다.
 
-                @Code(name: "ARViewContainer.swift", file: "02-person-02-ARViewContainer.swift")
+                @Code(name: "ARViewContainer.swift", file: "02-person-02-ARViewContainer.swift", previousFile: "02-camera-02-ARViewContainer.swift")
             }
 
             @Step {
@@ -124,7 +124,7 @@
                 Apple 공식 샘플은 여기서 `fatalError`로 앱을 강제 종료하지만, 실제 앱에서는
                 이렇게 안내 화면으로 분기하는 쪽이 옳습니다.
 
-                @Code(name: "ContentView.swift", file: "02-person-05-ContentView.swift")
+                @Code(name: "ContentView.swift", file: "02-person-05-ContentView.swift", previousFile: "02-camera-03-ContentView.swift")
             }
 
             @Step {
