@@ -53,13 +53,15 @@
             }
 
             @Step {
-                실행하기 전에 카메라 권한 문구를 등록합니다. TARGETS → Info에
-                `Privacy - Camera Usage Description`을 추가하고, 카메라를 쓰는 이유를
-                값으로 적습니다.
+                실행하기 전에 카메라를 쓰는 이유를 등록합니다. 파란 프로젝트 아이콘 →
+                **TARGETS**의 `BodyMotionDemo` → 위쪽 **Info** 탭을 엽니다. 표의 행 위에서
+                우클릭해 **Add Row**를 고르고, 키에 "Privacy - Camera Usage Description"을,
+                값에 `사람의 동작을 인식해 로봇을 움직이려면 카메라가 필요합니다.`처럼
+                이유를 적습니다.
 
-                이 문구가 없으면 권한 팝업은 뜨지도 않고 앱이 즉시 종료됩니다. AR은
-                카메라를 쓰는데, iOS는 이유를 밝히지 않은 앱의 접근을 크래시로 막습니다.
-                콘솔에 `NSCameraUsageDescription` 키를 요구하는 메시지가 찍히면
+                이 문구가 없으면 권한 팝업이 뜨지 않고 앱이 바로 종료됩니다. iOS는
+                이유를 밝히지 않은 앱의 카메라 접근을 크래시로 막습니다. 콘솔에
+                `NSCameraUsageDescription` 키를 요구하는 메시지가 찍히면
                 이 스텝을 건너뛴 것입니다.
             }
 
