@@ -67,32 +67,6 @@ extension ARViewContainer {
             state.isPersonDetected = true
         }
 
-        /// 추적 중인 앵커가 갱신될 때마다(매 프레임, 최대 60회/초) 호출됩니다.
-        func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
-            for anchor in anchors {
-                guard let bodyAnchor = anchor as? ARBodyAnchor else { continue }
-
-                // 배지 갱신 — 값이 바뀔 때만 써서 매 프레임 화면 갱신을 피합니다.
-                if state.isPersonDetected != bodyAnchor.isTracked {
-                    state.isPersonDetected = bodyAnchor.isTracked
-                }
-
-                // 사람 골반의 월드 좌표에 옆 오프셋을 더해 characterAnchor를 옮깁니다.
-                let bodyPosition = simd_make_float3(bodyAnchor.transform.columns.3)
-                characterAnchor.position = bodyPosition + sideOffset(from: session, to: bodyPosition)
-
-                // 스켈레톤 포즈는 앵커의 '회전 기준' 상대값이라 회전도 함께 복사해야
-                // 로봇이 사람과 같은 방향을 봅니다.
-                characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
-
-                // "모델 로딩 완료 + 사람 감지" 두 조건이 처음 동시에 충족된 프레임에
-                // 딱 한 번만 로봇을 앵커에 매답니다.
-                if let character, character.parent == nil {
-                    characterAnchor.addChild(character)
-                }
-            }
-        }
-
         /// "카메라 → 사람" 방향과 수직인 수평 방향의 오프셋을 계산합니다.
         /// 방향을 매 프레임 카메라 기준으로 다시 구하므로, 어디서 찍어도 로봇이
         /// 화면상 사람의 왼쪽, 사람과 같은 거리(깊이)에 섭니다 — 방향을 월드 좌표에
