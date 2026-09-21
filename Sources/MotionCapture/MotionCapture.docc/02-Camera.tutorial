@@ -18,8 +18,9 @@
             @Step {
                 Xcode에서 **File → New → Project…**를 고르고 **Choose Template**을
                 누릅니다. **iOS → App**을 선택하고 Product Name에 `BodyMotionDemo`,
-                Organization Identifier에 `com.example`처럼 아무 역도메인을 적은 뒤,
-                저장 위치를 정해 프로젝트를 만듭니다.
+                Organization Identifier에 `com.본인영문이름`처럼 자기만의 값을 적은 뒤,
+                저장 위치를 정해 프로젝트를 만듭니다. `com.example` 같은 예시 값을 그대로
+                두면 다른 사람과 앱 ID가 겹쳐 실기기 설치 때 등록 에러가 날 수 있습니다.
 
                 Team은 나중에 골라도 됩니다. 실기기에 설치할 때 파란 프로젝트 아이콘 →
                 **TARGETS** → **Signing & Capabilities**의 Team에서 Apple ID(Personal Team)를
@@ -55,8 +56,7 @@
                 실행하기 전에 카메라를 쓰는 이유를 등록합니다. 파란 프로젝트 아이콘 →
                 **TARGETS**의 `BodyMotionDemo` → 위쪽 **Info** 탭을 엽니다. 표의 행 위에서
                 우클릭해 **Add Row**를 고르고, 키에 "Privacy - Camera Usage Description"을,
-                값에 `사람의 동작을 인식해 로봇을 움직이려면 카메라가 필요합니다.`처럼
-                이유를 적습니다.
+                값에 `AR 모션 캡처를 위해 카메라를 사용합니다.`처럼 이유를 적습니다.
 
                 이 문구가 없으면 권한 팝업이 뜨지 않고 앱이 바로 종료됩니다. iOS는
                 이유를 밝히지 않은 앱의 카메라 접근을 크래시로 막습니다. 콘솔에
@@ -65,8 +65,10 @@
             }
 
             @Step {
-                실기기에서 실행합니다. 카메라 권한 팝업에서 **허용**을 누르면
-                후면 카메라 영상이 전체 화면에 보입니다.
+                iPhone을 케이블로 연결하고, Xcode 상단 툴바의 실행 대상을 시뮬레이터
+                대신 내 iPhone으로 바꾼 뒤 실행합니다. 처음이면 iPhone이 개발자 모드
+                켜기와 개발자 신뢰를 요구하는데, 화면 안내대로 따르면 됩니다. 카메라
+                권한 팝업에서 **허용**을 누르면 후면 카메라 영상이 전체 화면에 보입니다.
 
                 카메라를 켜는 코드가 없는데 영상이 나오는 이유는 `ARView`의
                 `automaticallyConfigureSession`이 기본으로 켜져 있어 기본 AR 세션을
