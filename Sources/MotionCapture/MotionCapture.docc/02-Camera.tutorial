@@ -46,8 +46,8 @@
             }
 
             @Step {
-                새 프로젝트의 `ContentView.swift`는 "Hello, world!" 화면입니다. 내용을
-                전부 지우고, 방금 만든 어댑터를 전체 화면으로 띄우는 코드로 바꿉니다.
+                `ContentView.swift`에서 `body` 안의 "Hello, world!" 화면을 지우고,
+                방금 만든 어댑터를 전체 화면으로 띄우는 코드로 바꿉니다.
 
                 @Code(name: "ContentView.swift", file: "02-camera-03-ContentView.swift", previousFile: "02-camera-00-ContentView.swift")
             }
@@ -137,17 +137,24 @@
             }
 
             @Step {
-                `ContentView`를 통째로 아래 코드로 바꿉니다. 공유 상태 `BodyTrackingState`를
-                `@State`로 하나 만들어 `ARViewContainer(state:)`에 넘기고, 그 위에 감지
-                배지를 얹습니다. 세션을 켜기 전에 `ARBodyTrackingConfiguration.isSupported`로
-                기기 지원 여부를 확인하고, 미지원이면 안내 화면을 보여 줍니다.
+                `ContentView`에 공유 상태 `BodyTrackingState`를 `@State`로 하나 만들고,
+                `ARViewContainer(state:)`에 넘깁니다. 앞에서 예고한 인자 에러가 여기서
+                사라집니다.
 
-                `ARBodyTrackingConfiguration`은 ARKit 타입이라 여기에도 `import ARKit`이
-                필요합니다. 두 스텝 전에 예고한 `ContentView` 에러는 이 교체로 사라집니다.
+                `@State`로 두면 SwiftUI가 뷰를 다시 만들어도 같은 상태 객체를 유지합니다.
+
+                @Code(name: "ContentView.swift", file: "02-person-05-ContentView.swift", previousFile: "02-camera-03-ContentView.swift")
+            }
+
+            @Step {
+                파일 맨 위에 `import ARKit`을 추가합니다. `ARBodyTrackingConfiguration.isSupported`로
+                기기 지원 여부를 확인해, 미지원이면 안내 화면을 보여 주고 지원하면 AR 화면
+                위에 감지 배지를 얹습니다.
+
                 Apple 공식 샘플은 미지원 기기에서 `fatalError`로 앱을 종료하지만, 실제
                 앱에서는 이렇게 안내 화면을 보여 주는 쪽이 맞습니다.
 
-                @Code(name: "ContentView.swift", file: "02-person-05-ContentView.swift", previousFile: "02-camera-03-ContentView.swift")
+                @Code(name: "ContentView.swift", file: "02-person-06-ContentView.swift")
             }
 
             @Step {

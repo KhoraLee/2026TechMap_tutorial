@@ -125,7 +125,7 @@
                 SwiftUI의 `Scene`과 RealityKit의 `Scene`이 충돌하니, 그 줄을 지우거나
                 `some SwiftUI.Scene`처럼 모듈 이름을 붙이면 됩니다.
 
-                @Code(name: "ContentView.swift", file: "03-robot-08-ContentView.swift", previousFile: "02-person-05-ContentView.swift")
+                @Code(name: "ContentView.swift", file: "03-robot-08-ContentView.swift", previousFile: "02-person-06-ContentView.swift")
             }
 
             @Step {
