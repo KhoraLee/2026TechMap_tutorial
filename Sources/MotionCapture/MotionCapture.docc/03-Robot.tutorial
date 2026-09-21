@@ -52,10 +52,12 @@
                 번들에서 robot.usdz를 로딩합니다(확장자는 뺍니다). 실패하면 에러 메시지를
                 상태에 담아 화면으로 보냅니다.
 
-                `await`가 붙은 함수는 `Task { }` 안에서만 부를 수 있어서 감쌉니다. 로딩이
-                끝날 때까지 화면은 멈추지 않습니다. `scale`은 기본값 1이지만 나중에 크기를
-                바꿀 자리로 남겨 둡니다. 예전 자료에 나오는 `loadBodyTrackedAsync`와 Combine
-                코드는 iOS 18부터 deprecated이고, 지금은 이 한 줄이면 됩니다.
+                `loadCharacter()`는 일반(동기) 함수라 그 안에서 `await`를 쓰려면
+                `Task { }`로 감싸야 합니다. 로딩이 끝날 때까지 화면은 멈추지 않습니다.
+                `scale`은 기본값 1이지만 나중에 크기를 바꿀 자리로 남겨 둡니다. 예전 자료에
+                나오는 `loadBodyTrackedAsync`와 Combine 코드는 iOS 18부터 deprecated이고,
+                iOS 18에 추가된 `init(named:)` 한 줄이면 됩니다. 이 튜토리얼이 iOS 18
+                이상을 요구하는 이유입니다.
 
                 @Code(name: "ARViewContainer.swift", file: "03-robot-03-ARViewContainer.swift")
             }
@@ -96,7 +98,7 @@
                 행렬이고 마지막 열(`columns.3`)이 사람 **골반**의 위치입니다. 여기에
                 옆 오프셋을 더해 `characterAnchor`를 옮기고, 앵커의 **회전도 복사**합니다.
 
-                메서드 첫머리의 `isTracked` 비교는 사람이 화면 밖으로 나가면 배지를
+                루프 안 첫 `if`문의 `isTracked` 비교는 사람이 화면 밖으로 나가면 배지를
                 ⚪️로 되돌리는 코드입니다. 값이 바뀔 때만 써서 매 프레임 화면을 다시
                 그리지 않게 합니다. 스켈레톤 포즈는 앵커 회전 기준의 상대값이라, 회전
                 복사를 빼먹으면 사람이 몸을 돌려도 로봇은 같은 방향만 봅니다.
@@ -118,10 +120,10 @@
             @Step {
                 `ContentView`에 로딩 실패 배너를 추가하면 완성입니다.
 
-                `BodyMotionDemoApp.swift`에는 `import RealityKit`을 넣지 마세요.
-                SwiftUI의 `Scene`과 RealityKit의 `Scene`이 충돌해
-                `'Scene' is ambiguous for type lookup` 에러가 납니다. 꼭 필요하다면
-                `some SwiftUI.Scene`처럼 모듈 이름을 붙여 한정하면 됩니다.
+                혹시 `'Scene' is ambiguous for type lookup` 에러가 난다면
+                `BodyMotionDemoApp.swift`에 `import RealityKit`이 들어간 것입니다.
+                SwiftUI의 `Scene`과 RealityKit의 `Scene`이 충돌하니, 그 줄을 지우거나
+                `some SwiftUI.Scene`처럼 모듈 이름을 붙이면 됩니다.
 
                 @Code(name: "ContentView.swift", file: "03-robot-08-ContentView.swift", previousFile: "02-person-05-ContentView.swift")
             }
