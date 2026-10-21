@@ -118,7 +118,9 @@
             }
 
             @Step {
-                `ContentView`에 로딩 실패 배너를 추가하면 완성입니다.
+                `ContentView`에 로딩 실패 배너를 추가하면 완성입니다. 배지를
+                `VStack`으로 감싸고, 그 아래에 `loadErrorMessage`가 있을 때만
+                `errorBanner`를 넣습니다. `.padding(.top, 8)`은 VStack 쪽으로 옮깁니다.
 
                 혹시 `'Scene' is ambiguous for type lookup` 에러가 난다면
                 `BodyMotionDemoApp.swift`에 `import RealityKit`이 들어간 것입니다.
