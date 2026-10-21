@@ -17,7 +17,8 @@
         @Steps {
             @Step {
                 Xcode에서 **File → New → Project…**를 고르고 **Choose Template**을
-                누릅니다. **iOS → App**을 선택하고 Product Name에 `BodyMotionDemo`,
+                누릅니다. 템플릿 목록에서 **iOS → App**을 선택하고 **Next**를 누른 뒤,
+                Product Name에 `BodyMotionDemo`,
                 Organization Identifier에 `com.본인영문이름`처럼 자기만의 값을 적은 뒤,
                 저장 위치를 정해 프로젝트를 만듭니다. `com.example` 같은 예시 값을 그대로
                 두면 다른 사람과 앱 ID가 겹쳐 실기기 설치 때 등록 에러가 날 수 있습니다.
@@ -30,8 +31,9 @@
             }
 
             @Step {
-                새 파일 `ARViewContainer.swift`를 만들고, `UIViewRepresentable`을
-                채택한 구조체를 작성합니다. `makeUIView`는 `ARView`를 만들어 돌려줍니다.
+                **File → New → File from Template…**에서 **Swift File**을 골라
+                `ARViewContainer.swift`를 만들고, `UIViewRepresentable`을 채택한
+                구조체를 작성합니다. `makeUIView`는 `ARView`를 만들어 돌려줍니다.
 
                 `ARView`는 RealityKit 프레임워크가 제공하는 UIKit 뷰라서
                 `import RealityKit`이 필요합니다. 크기를 `.zero`로 줘도 SwiftUI가
@@ -67,8 +69,10 @@
             }
 
             @Step {
-                iPhone을 케이블로 연결하고, Xcode 상단 툴바의 실행 대상을 시뮬레이터
-                대신 내 iPhone으로 바꾼 뒤 실행합니다. 처음이면 iPhone이 개발자 모드
+                실행 전에 첫 스텝에서 미뤄 둔 **Signing & Capabilities → Team**을
+                고릅니다. 목록이 비어 있으면 **Add an Account…**로 Apple ID를 먼저
+                추가합니다. 그다음 iPhone을 케이블로 연결하고, Xcode 상단 툴바의
+                실행 대상을 시뮬레이터 대신 내 iPhone으로 바꾼 뒤 실행합니다. 처음이면 iPhone이 개발자 모드
                 켜기와 개발자 신뢰를 요구하는데, 화면 안내대로 따르면 됩니다. 카메라
                 권한 팝업에서 **허용**을 누르면 후면 카메라 영상이 전체 화면에 보입니다.
 
@@ -98,7 +102,7 @@
 
         @Steps {
             @Step {
-                새 Swift 파일 `BodyTrackingState.swift`를 만듭니다.
+                같은 방법으로 새 Swift 파일 `BodyTrackingState.swift`를 만듭니다.
                 Coordinator가 값을 쓰고 `ContentView`가 값을 읽는 공유 상태입니다.
 
                 클래스에 `@Observable`을 붙이면 프로퍼티 값이 바뀔 때 그 값을 읽는
