@@ -11,7 +11,8 @@
             쓸 모델은 Apple 공식 샘플
             [Capturing Body Motion in 3D](https://developer.apple.com/documentation/arkit/capturing-body-motion-in-3d)
             페이지에서 zip을 내려받아 풀면 나오는 `BodyDetection/character/robot.usdz`입니다.
-            바디 트래킹 전용으로 리깅된 모델이라 아무 usdz나 대신 쓸 수는 없습니다.
+            바디 트래킹 전용으로 리깅(모델에 관절 뼈대를 심는 작업)된 모델이라 아무 usdz나
+            대신 쓸 수는 없습니다.
 
             이 파일은 약 14MB라 로딩에 몇 초가 걸립니다. `try await`로 비동기
             로딩하고, 실패하면 화면에 빨간 에러 배너를 띄웁니다.
@@ -23,7 +24,7 @@
                 프로젝트에 넣습니다. 다이얼로그의 **Action**이 **Copy files to destination**인지,
                 **Targets**에 앱이 체크돼 있는지 확인하고 Finish를 누릅니다.
 
-                이 설정이 빠지면 파일이 앱 번들에 들어가지 않아, 잠시 뒤 쓸 로딩
+                이 설정이 빠지면 파일이 앱 번들(기기에 설치되는 앱 패키지)에 들어가지 않아, 잠시 뒤 쓸 로딩
                 코드가 모델을 찾지 못합니다. 넣은 뒤 파일 목록에서 `robot.usdz`가
                 `ContentView.swift`와 같은 폴더 안에 보이는지 확인하세요. 폴더 밖
                 맨 위에 들어갔다면 폴더 안으로 드래그해 옮깁니다.
@@ -37,8 +38,8 @@
 
             @Step {
                 Coordinator에 세 가지를 추가합니다. 로봇을 매달아 둘 빈 앵커
-                `characterAnchor`, 로딩된 모델을 보관할 `character`, 로봇을 사람
-                옆에 세울 거리 `characterOffsetDistance`입니다.
+                `characterAnchor`(RealityKit의 `AnchorEntity`), 로딩된 모델을 보관할
+                `character`, 로봇을 사람 옆에 세울 거리 `characterOffsetDistance`입니다.
 
                 거리만 정하고 방향은 정하지 않습니다. 로봇을 세울 "옆" 방향은 카메라가
                 어디 있느냐에 따라 달라져서, 다음 섹션에서 매 프레임 카메라 기준으로
@@ -63,7 +64,8 @@
             }
 
             @Step {
-                `makeUIView`에서 빈 앵커를 씬에 미리 넣고, 로딩을 시작합니다.
+                `makeUIView`에서 빈 앵커를 씬(`arView.scene`, AR 화면에 그려지는 3D 공간)에
+                미리 넣고, 로딩을 시작합니다.
 
                 @Code(name: "ARViewContainer.swift", file: "03-robot-04-ARViewContainer.swift")
             }
@@ -99,8 +101,8 @@
                 옆 오프셋을 더해 `characterAnchor`를 옮기고, 앵커의 **회전도 복사**합니다.
 
                 루프 안 첫 `if`문의 `isTracked` 비교는 사람이 화면 밖으로 나가면 배지를
-                ⚪️로 되돌리는 코드입니다. 값이 바뀔 때만 써서 매 프레임 화면을 다시
-                그리지 않게 합니다. 스켈레톤 포즈는 앵커 회전 기준의 상대값이라, 회전
+                ⚪️로 되돌리는 코드입니다. 값이 달라졌을 때만 대입해서 매 프레임 화면을
+                다시 그리지 않게 합니다. 스켈레톤 포즈는 앵커 회전 기준의 상대값이라, 회전
                 복사를 빼먹으면 사람이 몸을 돌려도 로봇은 같은 방향만 봅니다.
 
                 @Code(name: "ARViewContainer.swift", file: "03-robot-06-ARViewContainer.swift")
@@ -122,7 +124,8 @@
                 `VStack`으로 감싸고, 그 아래에 `loadErrorMessage`가 있을 때만
                 `errorBanner`를 넣습니다. `.padding(.top, 8)`은 VStack 쪽으로 옮깁니다.
 
-                혹시 `'Scene' is ambiguous for type lookup` 에러가 난다면
+                이 튜토리얼대로 했다면 나지 않지만, 혹시
+                `'Scene' is ambiguous for type lookup` 에러가 난다면
                 `BodyMotionDemoApp.swift`에 `import RealityKit`이 들어간 것입니다.
                 SwiftUI의 `Scene`과 RealityKit의 `Scene`이 충돌하니, 그 줄을 지우거나
                 `some SwiftUI.Scene`처럼 모듈 이름을 붙이면 됩니다.
